@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "ee134ad0-00eb-47a0-baf4-b62639711e6d",
+		"name": "delibox",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "delivery",
+			"item": [
+				{
+					"name": "novo delivery",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"delivery teste\",\n    \"logo\": \"link da logo\",\n    \"wrapper\": \"link da logo\",\n    \"address\": {\n        \"uf\": \"CE\",\n        \"cep\": \"00000000\",\n        \"city\": \"Fortaleza\",\n        \"neighborhood\": \"aldeota\",\n        \"number\": \"0000\",\n        \"street\": \"rua tal\"        \n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/delivery/newDelivery",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"delivery",
+								"newDelivery"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "credential",
+			"item": [
+				{
+					"name": "criar uma credential",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"teste@gmail.com\",\n    \"password\": \"123\",\n    \"deliveries\":[\"62e877698f7c3ded6140b3ff\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/credential/newCredential",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"credential",
+								"newCredential"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "localhost:5000/api/v1"
+		}
+	]
+}
