@@ -4,6 +4,7 @@ const dotenv = require('dotenv')
 
 const deliveryRouter = require('./routers/delivery')
 const credentialRouter = require('./routers/credential')
+const cityRouter = require('./routers/city')
 
 const app = express()
 dotenv.config()
@@ -16,6 +17,7 @@ require("./config/connection")
 
 app.use('/api/v1/delivery', deliveryRouter)
 app.use('/api/v1/credential', credentialRouter)
+app.use('/api/v1/city', cityRouter)
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`Backend is running in ${process.env.PORT || 3000}`)
