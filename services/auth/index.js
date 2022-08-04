@@ -12,7 +12,7 @@ const verifyToken = (req,res,next) => {
       next()
     })
   }else {
-    res.status(401).json("You are not authenticated")
+    res.status(200).json("You are not authenticated")
   }
 }
 
