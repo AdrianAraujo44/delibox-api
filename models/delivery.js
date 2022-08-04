@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const DeliverySchema = new Schema ({
+const deliverySchema = new Schema ({
   name: {
     type: String,
     required: true
@@ -22,8 +22,7 @@ const DeliverySchema = new Schema ({
   ],
   taxs: [{
     neighborhood:{
-      type: Schema.Types.ObjectId,
-      ref: 'Tax',
+      type: String,
       required: true
     },
     price: {
@@ -41,8 +40,10 @@ const DeliverySchema = new Schema ({
       required: true
     },
     city:{
-      type: String,
-      required: true
+      // type: String,
+      // required: true
+      type: Schema.Types.ObjectId,
+      ref: 'Cities'
     },
     complement:{
       type: String,
@@ -163,4 +164,4 @@ const DeliverySchema = new Schema ({
   },
 }, { timestamps: true })
 
-module.exports = mongoose.model('Delivery', DeliverySchema)
+module.exports = mongoose.model('Delivery', deliverySchema)
