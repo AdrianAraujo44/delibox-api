@@ -10,7 +10,7 @@ const deliverySchema = new Schema ({
     type: String,
     default: ''
   },
-  wrapper: {
+  background: {
     type: String,
     default: ''
   },
