@@ -88,12 +88,24 @@ const deleteTax = async(req,res) => {
   }
 }
 
+const customization = async(req,res) => {
+  try{
+    const { deliveryId, logo, background } = req.body
+    await deliveryModel.findByIdAndUpdate(deliveryId, { logo, background })
+
+    res.status(200).json('success')
+  }catch(err) {
+    res.status(500).json(err)
+  }
+}
+
 const deliveryController = {
   newDelivery,
   getDelivery,
   addTax,
   getAllTaxs,
-  deleteTax
+  deleteTax,
+  customization
 }
 
 module.exports = { deliveryController }

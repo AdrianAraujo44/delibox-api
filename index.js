@@ -2,12 +2,20 @@ const express = require('express')
 const cors = require('cors')
 const dotenv = require('dotenv')
 
+const admin = require("firebase-admin")
+const serviceAccount = require("./config/firebase-key.json")
+
 const deliveryRouter = require('./routers/delivery')
 const credentialRouter = require('./routers/credential')
 const cityRouter = require('./routers/city')
 
 const app = express()
 dotenv.config()
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  storageBucket: process.env.FIREBASE_BUCKET
+});
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
