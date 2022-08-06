@@ -6,7 +6,7 @@ const CategorySchema = new Schema ({
     type: String,
     required: true
   },
-  delivery: {
+  deliveryId: {
     type: Schema.Types.ObjectId,
     ref: 'Delivery'
   }

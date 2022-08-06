@@ -8,6 +8,7 @@ const serviceAccount = require("./config/firebase-key.json")
 const deliveryRouter = require('./routers/delivery')
 const credentialRouter = require('./routers/credential')
 const cityRouter = require('./routers/city')
+const categoryRouter = require('./routers/category')
 
 const app = express()
 dotenv.config()
@@ -26,6 +27,7 @@ require("./config/connection")
 app.use('/api/v1/delivery', deliveryRouter)
 app.use('/api/v1/credential', credentialRouter)
 app.use('/api/v1/city', cityRouter)
+app.use('/api/v1/category', categoryRouter)
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`Backend is running in ${process.env.PORT || 3000}`)
