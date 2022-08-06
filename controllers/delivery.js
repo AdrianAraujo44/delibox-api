@@ -15,8 +15,10 @@ const newDelivery = async(req,res) => {
 const getDelivery = async(req,res) => {
   try{
     const response = await deliveryModel.findById(req.params.id)
+      .populate({path:"address.city", select: "_id name"})
     res.status(200).json(response)
   }catch(err) {
+    console.log(err)
     res.status(500).json(err)
   }
 }
@@ -90,11 +92,37 @@ const deleteTax = async(req,res) => {
 
 const customization = async(req,res) => {
   try{
-    const { deliveryId, logo, background } = req.body
-    await deliveryModel.findByIdAndUpdate(deliveryId, { logo, background })
+    const { deliveryId } = req.body
+    if(req.body.logo == "undefined") req.body.logo = ''
+    if(req.body.background == "undefined") req.body.background = ''
+
+    await deliveryModel.findByIdAndUpdate(deliveryId, { 
+      logo: req.body.logo, 
+      background: req.body.background
+    })
 
     res.status(200).json('success')
   }catch(err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+}
+
+const updateSettings = async(req,res) => {
+  try {
+    const { deliveryId } = req.params
+    let info = req.body
+    const response = await cityModel.findOne({name:req.body.address.city})
+    if(response == null ){
+      res.status(200).json({type:"warning", message: "cidade não autorizada, entre em contato com o suporte!"})
+    }else {
+      info.address.city = response._id
+      await deliveryModel.findByIdAndUpdate(deliveryId, {...info})
+      res.status(200).json({type:"success", message:"informações atualizadas com sucesso!"})
+    }
+    
+  }catch(err) {
+    console.log(err)
     res.status(500).json(err)
   }
 }
@@ -105,7 +133,8 @@ const deliveryController = {
   addTax,
   getAllTaxs,
   deleteTax,
-  customization
+  customization,
+  updateSettings
 }
 
 module.exports = { deliveryController }
