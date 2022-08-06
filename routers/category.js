@@ -10,4 +10,8 @@ router.get("/:id", verifyToken, async(req,res) => {
   categoryController.getAll(req,res)
 })
 
+router.put("/:id", verifyToken, async(req,res) => {
+  categoryController.update(req,res)
+})
+
 module.exports = router
