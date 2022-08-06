@@ -18,8 +18,20 @@ const newCategory = async(req,res) => {
   }
 }
 
+const getAll = async(req,res) => {
+  try {
+    const { id } = req.params
+    const response = await categoryModel.find({deliveryId:id}, "name")
+
+    res.status(200).json(response)
+  }catch(err) {
+    res.status(500).json(err)
+  }
+}
+
 const categoryController = {
-  newCategory
+  newCategory,
+  getAll
 }
 
 module.exports = { categoryController }
