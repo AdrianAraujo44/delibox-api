@@ -40,10 +40,8 @@ const deliverySchema = new Schema ({
       required: true
     },
     city:{
-      // type: String,
-      // required: true
       type: Schema.Types.ObjectId,
-      ref: 'Cities'
+      ref: 'City'
     },
     complement:{
       type: String,
@@ -65,82 +63,178 @@ const deliverySchema = new Schema ({
   hourWork: {
     monday: {
       am: {
-        type: String,
-        default: ''
+        start: {
+          type: String,
+          default: ''
+        }, 
+        end: {
+          type: String,
+          default: ''
+        }
       },
       pm: {
-        type: String,
-        default: ''
+        start: {
+          type: String,
+          default: ''
+        }, 
+        end: {
+          type: String,
+          default: ''
+        }
       }
     },
     tuesday: {
       am: {
-        type: String,
-        default: ''
+        start: {
+          type: String,
+          default: ''
+        }, 
+        end: {
+          type: String,
+          default: ''
+        }
       },
       pm: {
-        type: String,
-        default: ''
+        start: {
+          type: String,
+          default: ''
+        }, 
+        end: {
+          type: String,
+          default: ''
+        }
       }
     },
     wednesday: {
       am: {
-        type: String,
-        default: ''
+        start: {
+          type: String,
+          default: ''
+        }, 
+        end: {
+          type: String,
+          default: ''
+        }
       },
       pm: {
-        type: String,
-        default: ''
+        start: {
+          type: String,
+          default: ''
+        }, 
+        end: {
+          type: String,
+          default: ''
+        }
       }
     },
     thursday: {
       am: {
-        type: String,
-        default: ''
+        start: {
+          type: String,
+          default: ''
+        }, 
+        end: {
+          type: String,
+          default: ''
+        }
       },
       pm: {
-        type: String,
-        default: ''
+        start: {
+          type: String,
+          default: ''
+        }, 
+        end: {
+          type: String,
+          default: ''
+        }
       }
     },
     friday: {
       am: {
-        type: String,
-        default: ''
+        start: {
+          type: String,
+          default: ''
+        }, 
+        end: {
+          type: String,
+          default: ''
+        }
       },
       pm: {
-        type: String,
-        default: ''
+        start: {
+          type: String,
+          default: ''
+        }, 
+        end: {
+          type: String,
+          default: ''
+        }
       }
     },
     saturday: {
       am: {
-        type: String,
-        default: ''
+        start: {
+          type: String,
+          default: ''
+        }, 
+        end: {
+          type: String,
+          default: ''
+        }
       },
       pm: {
-        type: String,
-        default: ''
+        start: {
+          type: String,
+          default: ''
+        }, 
+        end: {
+          type: String,
+          default: ''
+        }
       }
     },
     sunday: {
       am: {
-        type: String,
-        default: ''
+        start: {
+          type: String,
+          default: ''
+        }, 
+        end: {
+          type: String,
+          default: ''
+        }
       },
       pm: {
-        type: String,
-        default: ''
+        start: {
+          type: String,
+          default: ''
+        }, 
+        end: {
+          type: String,
+          default: ''
+        }
       }
     },
     holiday:{
       am: {
-        type: String,
-        default: ''
+        start: {
+          type: String,
+          default: ''
+        }, 
+        end: {
+          type: String,
+          default: ''
+        }
       },
       pm: {
-        type: String,
-        default: ''
+        start: {
+          type: String,
+          default: ''
+        }, 
+        end: {
+          type: String,
+          default: ''
+        }
       }
     }
   },
@@ -160,6 +254,10 @@ const deliverySchema = new Schema ({
     youtube: {
       type: String,
       default: '',
+    },
+    twitter: {
+      type: String,
+      default: ''
     }
   },
 }, { timestamps: true })
