@@ -14,7 +14,7 @@ const uploadImages = async (req, res, next) => {
 
     const nameImage = Date.now() + "." + image.originalname.split('.').pop()
 
-    const fileImage = bucket.file(`${image.fieldname}/${nameImage}`)
+    const fileImage = bucket.file(`${req.body.deliveryId}/${image.fieldname}/${nameImage}`)
 
     const stream = fileImage.createWriteStream({
       metadata: {
@@ -30,7 +30,7 @@ const uploadImages = async (req, res, next) => {
       await fileImage.makePublic()
     })
     stream.end(image.buffer)
-    req.body[`${keys[i]}`] = `https://storage.googleapis.com/${process.env.FIREBASE_BUCKET}/${image.fieldname}/${nameImage}`
+    req.body[`${keys[i]}`] = `https://storage.googleapis.com/${process.env.FIREBASE_BUCKET}/${req.body.deliveryId}/${image.fieldname}/${nameImage}`
 
   }
   next()
