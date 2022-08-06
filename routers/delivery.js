@@ -34,4 +34,8 @@ router.post("/customization", verifyToken, Multer.fields([{name:'logo'}, {name:"
   deliveryController.customization(req,res)
 })
 
+router.put("/updateSettings/:deliveryId", async(req,res) => {
+  deliveryController.updateSettings(req,res)
+})
+
 module.exports = router
