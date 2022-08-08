@@ -4,10 +4,10 @@ const deliveryModel = require("../models/delivery")
 const newProduct = async(req,res) => {
   try {
     const { id } = req.params
-    const { name, price, categories } = req.body
+    const { name, price, categories, description } = req.body
 
     const newProduct = new  productModel({
-      name, price, categories
+      name, price, categories, description
     })
     const product = await newProduct.save()
     await deliveryModel.updateOne(

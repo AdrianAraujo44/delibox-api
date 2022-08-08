@@ -38,4 +38,8 @@ router.put("/updateSettings/:deliveryId", async(req,res) => {
   deliveryController.updateSettings(req,res)
 })
 
+router.get("/:deliveryId/menu/", async(req,res) => {
+  deliveryController.getMenu(req,res)
+})
+
 module.exports = router

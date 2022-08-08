@@ -1,5 +1,6 @@
 const deliveryModel = require("../models/delivery")
 const cityModel = require("../models/city")
+const categoryModel = require("../models/category")
 
 const newDelivery = async(req,res) => {
   try{
@@ -127,6 +128,39 @@ const updateSettings = async(req,res) => {
   }
 }
 
+const getMenu = async(req,res) => {
+  try {
+    const { deliveryId } = req.params
+    let categories = await categoryModel.find({deliveryId}, "name")
+    const delivery = await deliveryModel.findById(deliveryId, "products")
+      .populate({
+        path: "products",
+        select: "name price categories imageUrl description",
+        populate: {path: "categories", select: "name"}
+      })
+
+    let menu = []
+    categories.forEach((item) => {
+      let products = []
+      delivery.products.forEach((product) => {
+        product.categories.forEach((category) => {
+          if(category._id.toString() == item._id.toString()) {
+            let {_id, name, price, imageUrl, description, ...other} = product
+            products.push({_id, name, price, imageUrl, description})
+          }
+        })
+      })
+      menu.push({name: item.name, _id: item._id, products})
+    })
+    
+    res.status(200).json(menu)
+
+  }catch(err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+}
+
 const deliveryController = {
   newDelivery,
   getDelivery,
@@ -134,7 +168,8 @@ const deliveryController = {
   getAllTaxs,
   deleteTax,
   customization,
-  updateSettings
+  updateSettings,
+  getMenu
 }
 
 module.exports = { deliveryController }
