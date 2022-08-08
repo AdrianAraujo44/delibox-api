@@ -14,4 +14,8 @@ router.post("/addImage", verifyToken, Multer.fields([{name:'product'}]), uploadI
   productController.addImage(req,res)
 })
 
+router.put("/:productId", async(req,res) => {
+  productController.edit(req,res)
+})
+
 module.exports = router

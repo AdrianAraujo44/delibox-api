@@ -37,9 +37,21 @@ const addImage = async(req,res) => {
   }
 }
 
+const edit = async(req,res) => {
+  try {
+    const { productId } = req.params
+    await productModel.findOneAndUpdate({_id:productId}, {...req.body})
+
+    res.status(200).json({type: "success", message:"produto atualizado com sucesso!"})
+  }catch(err) {
+    res.status(200).json(err)
+  }
+}
+
 const productController = {
   newProduct,
-  addImage
+  addImage,
+  edit
 }
 
 module.exports = { productController }
