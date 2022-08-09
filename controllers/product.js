@@ -25,10 +25,11 @@ const newProduct = async(req,res) => {
 
 const addImage = async(req,res) => {
   try {
-    const { productId, product } = req.body
+    const { productId } = req.body
+    if(req.body.product == "null") req.body.product = ''
     await productModel.updateOne(
       {'_id': productId },
-      {$set: {imageUrl: product}}
+      {$set: {imageUrl: req.body.product}}
     )
     res.status(200).json({type:"success", message: "imagem adicionanda com sucesso!"})
   }catch(err) {
@@ -48,10 +49,29 @@ const edit = async(req,res) => {
   }
 }
 
+const get = async(req,res) => {
+  try {
+    const response = await productModel.findById(req.params.productId)
+      .populate({
+          path: "categories",
+          select: "name"
+        })
+    if(response != null) {
+      res.status(200).json({type:"success", product: response})
+    }else {
+      res.status(200).json({type:"warning", message:"erro ao buscar informações sobre o produto!"})
+    }
+  }catch(err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+}
+
 const productController = {
   newProduct,
   addImage,
-  edit
+  edit,
+  get
 }
 
 module.exports = { productController }

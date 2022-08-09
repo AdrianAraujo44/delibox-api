@@ -18,4 +18,8 @@ router.put("/:productId", async(req,res) => {
   productController.edit(req,res)
 })
 
+router.get("/:productId", async(req,res) => {
+  productController.get(req,res)
+})
+
 module.exports = router
