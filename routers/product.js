@@ -22,4 +22,8 @@ router.get("/:productId", async(req,res) => {
   productController.get(req,res)
 })
 
+router.get("/allProducts/:deliveryId", async(req,res) => {
+  productController.getAll(req,res)
+})
+
 module.exports = router

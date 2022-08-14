@@ -9,7 +9,13 @@ const CategorySchema = new Schema ({
   deliveryId: {
     type: Schema.Types.ObjectId,
     ref: 'Delivery'
-  }
+  },
+  products: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Product'
+    }
+  ]
 }, { timestamps: true })
 
 module.exports = mongoose.model('Category', CategorySchema)
