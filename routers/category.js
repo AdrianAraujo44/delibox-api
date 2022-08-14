@@ -14,4 +14,8 @@ router.put("/:id", verifyToken, async(req,res) => {
   categoryController.update(req,res)
 })
 
+router.delete("/:id", async(req,res) => {
+  categoryController.deleteOne(req,res)
+})
+
 module.exports = router

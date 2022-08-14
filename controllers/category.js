@@ -1,4 +1,5 @@
 const categoryModel = require('../models/category')
+const productModel = require('../models/product')
 
 const newCategory = async(req,res) => {
   try{
@@ -48,10 +49,33 @@ const update = async(req,res) => {
   }
 }
 
+const deleteOne = async(req,res) => {
+  try {
+    const { id } = req.params
+    const category = await categoryModel.findById(id)
+
+    category.products.forEach(async(element) => {
+      await productModel.findByIdAndUpdate(
+        {_id: element},
+        {'$pull': {
+          categories: id
+        }}
+      )
+    })
+
+    await categoryModel.deleteOne({_id:id})
+    
+    res.status(200).json({type: "sucess", message: "category has been deleted"})
+  }catch(err) {
+    res.status(500).json(err)
+  }
+}
+
 const categoryController = {
   newCategory,
   getAll,
-  update
+  update,
+  deleteOne
 }
 
 module.exports = { categoryController }
