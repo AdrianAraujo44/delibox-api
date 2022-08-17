@@ -137,7 +137,7 @@ const getMenu = async (req, res) => {
     const delivery = await deliveryModel.findById(deliveryId, "products")
       .populate({
         path: "products",
-        select: "name price categories imageUrl description",
+        select: "name price categories imageUrl description available",
         populate: { path: "categories", select: "name" }
       })
 
@@ -148,8 +148,8 @@ const getMenu = async (req, res) => {
       delivery.products.forEach((product) => {
         product.categories.forEach((category) => {
           if (category._id.toString() == item._id.toString()) {
-            let { _id, name, price, imageUrl, description, ...other } = product
-            products.push({ _id, name, price, imageUrl, description })
+            let { _id, name, price, imageUrl, description, available, ...other } = product
+            products.push({ _id, name, price, imageUrl, description, available })
           }
         })
       })
@@ -173,6 +173,33 @@ const getMenu = async (req, res) => {
   }
 }
 
+const updateStatus = async (req,res) => {
+  try {
+    const { status } = req.body
+    const { id } = req.params
+    await deliveryModel.updateOne(
+      {_id: id},
+      {status: status}
+    )
+
+    res.status(200).json({type: "success", message:"status has been updated"})
+  }catch(err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+}
+
+const getStatus = async(req,res) => {
+  try {
+    const { id } = req.params
+    const response = await deliveryModel.findOne({_id: id}, "status")
+
+    res.status(200).json(response.status)
+  }catch(err) {
+    res.status(500).json(err)
+  }
+}
+
 const deliveryController = {
   newDelivery,
   getDelivery,
@@ -181,7 +208,9 @@ const deliveryController = {
   deleteTax,
   customization,
   updateSettings,
-  getMenu
+  getMenu,
+  updateStatus,
+  getStatus
 }
 
 module.exports = { deliveryController }

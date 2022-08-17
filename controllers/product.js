@@ -113,7 +113,7 @@ const getAll = async (req, res) => {
   try {
     const { deliveryId } = req.params
     const response = await deliveryModel.findById(deliveryId, "products")
-      .populate({ path: "products", select: "name description price imageUrl" })
+      .populate({ path: "products", select: "name description price imageUrl available" })
 
     res.status(200).json(response)
   } catch (err) {

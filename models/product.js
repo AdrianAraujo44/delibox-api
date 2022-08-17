@@ -21,6 +21,10 @@ const ProductSchema = new Schema({
   imageUrl: {
     type: String,
     default: ''
+  },
+  available: {
+    type: Boolean,
+    default: true
   }
 }, { timestamps: true })
 
