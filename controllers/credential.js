@@ -80,7 +80,7 @@ const refreshToken = async(req,res) => {
       err && console.log(err)
       refreshTokens = refreshTokens.filter((token) => token !== refreshToken)
 
-      console.log(payload)
+      // console.log(payload)
       
       const newAccessToken = jwt.sign(
         { id:payload.id, type:payload.type }, 
