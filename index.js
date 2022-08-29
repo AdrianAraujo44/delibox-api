@@ -52,7 +52,7 @@ const { orderController } = require('./controllers/order')
 const server = http.createServer(app)
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "*",
     methods: ["GET", "POST"]
   }
 })
@@ -70,14 +70,15 @@ io.on('connection', (socket) => {
     io.to(deliveryId).emit("recive_orders", orders)
   })
 
-  socket.on("new_orders", async(order) => {
-    await orderController.newOrder(order)
+  socket.on("new_orders", async(order, socketId) => {
+    let code = await orderController.newOrder(order)
     const orders = await orderController.getAll(order.deliveryId)
     io.to(order.deliveryId).emit("update_orders", orders)
+    io.to(socketId).emit('get_code_order', code)
   })
 
   socket.on("update_status_order", async(data) => {
-    await orderController.update(data.orderId, data.status)
+    await orderController.update(data.orderId, data.statusName)
     const orders = await orderController.getAll(data.deliveryId)
     io.to(data.deliveryId).emit("update_orders", orders)
   }) 
