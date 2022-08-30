@@ -14,7 +14,7 @@ router.post("/newDelivery", async(req,res) => {
   deliveryController.newDelivery(req,res)
 })
 
-router.get('/:id', verifyToken, async(req,res) => {
+router.get('/:id', async(req,res) => {
   deliveryController.getDelivery(req,res)
 })
 
@@ -38,7 +38,7 @@ router.put("/updateSettings/:deliveryId", verifyToken, async(req,res) => {
   deliveryController.updateSettings(req,res)
 })
 
-router.get("/:deliveryId/menu/", verifyToken, async(req,res) => {
+router.get("/:deliveryId/menu/", async(req,res) => {
   deliveryController.getMenu(req,res)
 })
 
