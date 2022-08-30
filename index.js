@@ -78,16 +78,21 @@ io.on('connection', (socket) => {
   })
 
   socket.on("update_status_order", async(data) => {
-    await orderController.update(data.orderId, data.statusName)
+    const orderUpdated = await orderController.update(data.orderId, data.statusName)
     const orders = await orderController.getAll(data.deliveryId)
     io.to(data.deliveryId).emit("update_orders", orders)
+    io.to(data.orderCode).emit("track_order", orderUpdated)
   }) 
 
   socket.on("update_new_order", async(data) => {
     await orderController.updateNew(data.orderId)
     const orders = await orderController.getAll(data.deliveryId)
     io.to(data.deliveryId).emit("update_orders", orders)
-  }) 
+  })
+
+  socket.on("join_order_room", async(orderCode) => {
+    socket.join(orderCode)
+  })
 
   socket.on("disconnect", () => {
     console.log(`user disconneted ${socket.id}`)

@@ -1,17 +1,5 @@
 const orderModel = require('../models/order')
 
-// const newOrder = async(req,res) => {
-//   try {
-//     const order = new orderModel({...req.body})
-//     await order.save()
-
-//     res.status(200).json("order saved!")
-
-//   }catch(err){
-//     res.status(500).json(err)
-//   }
-// }
-
 const newOrder = async (data) => {
   try {
     let codeExits = true
@@ -72,16 +60,18 @@ const getAll = async (deliveryId) => {
 
 const update = async (orderId, statusName) => {
   try {
-    await orderModel.updateOne({ _id: orderId },
+    const response = await orderModel.findOneAndUpdate({ _id: orderId },
       {
         '$push': {
           status: {
             name: statusName,
             date: new Date()
-          }
-        }
-      })
-    return
+          },
+        },
+      },
+      { new: true })
+      .populate({ path: "products.item", select: "name price imageUrl" })
+    return response
   } catch (err) {
     console.log(err)
   }
