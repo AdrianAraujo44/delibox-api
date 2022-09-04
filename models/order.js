@@ -23,11 +23,11 @@ const orderSchema = new Schema ({
     name: { type: String, required: true},
     phone: { type: String, required: true},
     address: { 
-      street: { type: String, required: true},
-      number: { type: String, required: true},
+      street: { type: String,},
+      number: { type: String,},
       complement: { type: String, default: ""},
-      cep: { type: String, required: true},
-      neighborhood: { type: String, required: true},
+      cep: { type: String,},
+      neighborhood: { type: String,},
     }
   },
 
