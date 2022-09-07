@@ -3,6 +3,7 @@ const Schema = mongoose.Schema
 
 const orderSchema = new Schema ({
   deliveryId: {type: Schema.Types.ObjectId, ref: 'Delivery'},
+  type: {type:String, required: true}, 
   code: { type: String, required: true },
   status: [
     {
@@ -16,7 +17,7 @@ const orderSchema = new Schema ({
 
   money: {
     type: { type: String, required: true },
-    change: { type: Number, required: true },
+    change: { type: Number, default: 0 },
   },
 
   client: {
@@ -25,7 +26,7 @@ const orderSchema = new Schema ({
     address: { 
       street: { type: String,},
       number: { type: String,},
-      complement: { type: String, default: ""},
+      complement: { type: String,},
       cep: { type: String,},
       neighborhood: { type: String,},
     }

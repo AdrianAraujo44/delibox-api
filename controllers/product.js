@@ -121,12 +121,24 @@ const getAll = async (req, res) => {
   }
 }
 
+const count = async(req,res) => {
+  try {
+    const { deliveryId } = req.params
+    const response = await deliveryModel.findById(deliveryId, "products")
+
+    res.status(200).json(response.products.length)
+  }catch(err) {
+    res.status(500).json(err)
+  }
+}
+
 const productController = {
   newProduct,
   addImage,
   edit,
   get,
-  getAll
+  getAll,
+  count
 }
 
 module.exports = { productController }

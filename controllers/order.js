@@ -98,12 +98,24 @@ const getOrder = async (req, res) => {
   }
 }
 
+const count = async(req,res) => {
+  try {
+    const { deliveryId } = req.params
+    const response = await orderModel.count({deliveryId: deliveryId })
+
+    res.status(200).json(response)
+  }catch(err) {
+    res.status(500).json(err)
+  }
+}
+
 const orderController = {
   newOrder,
   getAll,
   update,
   updateNew,
-  getOrder
+  getOrder,
+  count
 }
 
 module.exports = { orderController }
