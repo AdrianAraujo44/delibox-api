@@ -109,13 +109,25 @@ const count = async(req,res) => {
   }
 }
 
+const historic = async (req,res) => {
+  try {
+    const { deliveryId } = req.params
+    const response = await orderModel.find({ deliveryId })
+      .populate({ path: "products.item", select: "name price" })
+    res.status(200).json(response)
+  } catch (err) {
+    res.status(500).json(err)
+  }
+}
+
 const orderController = {
   newOrder,
   getAll,
   update,
   updateNew,
   getOrder,
-  count
+  count,
+  historic
 }
 
 module.exports = { orderController }

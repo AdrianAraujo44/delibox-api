@@ -14,4 +14,8 @@ router.get("/count/:deliveryId", verifyToken,async(req,res) => {
   orderController.count(req,res)
 })
 
+router.get("/historic/:deliveryId", verifyToken, async(req,res) => {
+  orderController.historic(req,res)
+})
+
 module.exports = router
