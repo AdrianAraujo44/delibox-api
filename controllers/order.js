@@ -1,10 +1,12 @@
 const orderModel = require('../models/order')
+const deliveryModel = require('../models/delivery')
 
 const newOrder = async (data) => {
   try {
     let codeExits = true
     let codes = await orderModel.find({}, "code")
     let code = ""
+    let tax = 0
     const newCode = () => {
       const geraAlpha = () => {
         return String.fromCharCode(65 + Math.floor(Math.random() * 26))
@@ -34,10 +36,18 @@ const newOrder = async (data) => {
       }
     }
 
+    const allTaxs = await deliveryModel.findOne({_id: data.deliveryId}, "taxs")
+    allTaxs.taxs.forEach((item) => {
+      if(item.neighborhood == data.client.address.neighborhood) {
+        tax = item.price
+      }
+    })
+
     const order = new orderModel({
       code,
       status: [{ name: "IN_QUEUE", date: new Date() }],
-      ...data
+      ...data,
+      tax
     })
     await order.save()
 
