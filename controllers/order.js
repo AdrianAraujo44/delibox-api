@@ -36,12 +36,14 @@ const newOrder = async (data) => {
       }
     }
 
-    const allTaxs = await deliveryModel.findOne({_id: data.deliveryId}, "taxs")
-    allTaxs.taxs.forEach((item) => {
-      if(item.neighborhood == data.client.address.neighborhood) {
-        tax = item.price
-      }
-    })
+    if (data.type == "entrega") {
+      const allTaxs = await deliveryModel.findOne({ _id: data.deliveryId }, "taxs")
+      allTaxs.taxs.forEach((item) => {
+        if (item.neighborhood == data.client.address.neighborhood) {
+          tax = item.price
+        }
+      })
+    }
 
     const order = new orderModel({
       code,
@@ -108,18 +110,18 @@ const getOrder = async (req, res) => {
   }
 }
 
-const count = async(req,res) => {
+const count = async (req, res) => {
   try {
     const { deliveryId } = req.params
-    const response = await orderModel.count({deliveryId: deliveryId })
+    const response = await orderModel.count({ deliveryId: deliveryId })
 
     res.status(200).json(response)
-  }catch(err) {
+  } catch (err) {
     res.status(500).json(err)
   }
 }
 
-const historic = async (req,res) => {
+const historic = async (req, res) => {
   try {
     const { deliveryId } = req.params
     const response = await orderModel.find({ deliveryId })
