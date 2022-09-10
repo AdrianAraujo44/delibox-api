@@ -17,7 +17,7 @@ const orderSchema = new Schema({
   notes: { type: String, default: "" },
 
   money: {
-    type: { type: String, required: true },
+    type: { type: String, default: '' },
     change: { type: Number, default: 0 },
   },
 
