@@ -1,12 +1,12 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const deliverySchema = new Schema ({
+const deliverySchema = new Schema({
   name: {
     type: String,
     required: true
   },
-  status:{
+  status: {
     type: String,
     required: true
   },
@@ -25,7 +25,7 @@ const deliverySchema = new Schema ({
     }
   ],
   taxs: [{
-    neighborhood:{
+    neighborhood: {
       type: String,
       required: true
     },
@@ -39,206 +39,110 @@ const deliverySchema = new Schema ({
       type: String,
       required: true
     },
-    cep:{
+    cep: {
       type: String,
       required: true
     },
-    city:{
+    city: {
       type: Schema.Types.ObjectId,
       ref: 'City'
     },
-    complement:{
+    complement: {
       type: String,
       default: ''
     },
-    neighborhood:{
+    neighborhood: {
       type: String,
       required: true
     },
-    number:{
+    number: {
       type: String,
       required: true
     },
-    street:{
+    street: {
       type: String,
       required: true
     },
   },
   hourWork: {
     monday: {
-      am: {
-        start: {
-          type: String,
-          default: ''
-        }, 
-        end: {
-          type: String,
-          default: ''
-        }
+      start: {
+        type: String,
+        default: ''
       },
-      pm: {
-        start: {
-          type: String,
-          default: ''
-        }, 
-        end: {
-          type: String,
-          default: ''
-        }
+      end: {
+        type: String,
+        default: ''
       }
     },
     tuesday: {
-      am: {
-        start: {
-          type: String,
-          default: ''
-        }, 
-        end: {
-          type: String,
-          default: ''
-        }
+      start: {
+        type: String,
+        default: ''
       },
-      pm: {
-        start: {
-          type: String,
-          default: ''
-        }, 
-        end: {
-          type: String,
-          default: ''
-        }
+      end: {
+        type: String,
+        default: ''
       }
     },
     wednesday: {
-      am: {
-        start: {
-          type: String,
-          default: ''
-        }, 
-        end: {
-          type: String,
-          default: ''
-        }
+      start: {
+        type: String,
+        default: ''
       },
-      pm: {
-        start: {
-          type: String,
-          default: ''
-        }, 
-        end: {
-          type: String,
-          default: ''
-        }
+      end: {
+        type: String,
+        default: ''
       }
     },
     thursday: {
-      am: {
-        start: {
-          type: String,
-          default: ''
-        }, 
-        end: {
-          type: String,
-          default: ''
-        }
+      start: {
+        type: String,
+        default: ''
       },
-      pm: {
-        start: {
-          type: String,
-          default: ''
-        }, 
-        end: {
-          type: String,
-          default: ''
-        }
+      end: {
+        type: String,
+        default: ''
       }
     },
     friday: {
-      am: {
-        start: {
-          type: String,
-          default: ''
-        }, 
-        end: {
-          type: String,
-          default: ''
-        }
+      start: {
+        type: String,
+        default: ''
       },
-      pm: {
-        start: {
-          type: String,
-          default: ''
-        }, 
-        end: {
-          type: String,
-          default: ''
-        }
+      end: {
+        type: String,
+        default: ''
       }
     },
     saturday: {
-      am: {
-        start: {
-          type: String,
-          default: ''
-        }, 
-        end: {
-          type: String,
-          default: ''
-        }
+      start: {
+        type: String,
+        default: ''
       },
-      pm: {
-        start: {
-          type: String,
-          default: ''
-        }, 
-        end: {
-          type: String,
-          default: ''
-        }
+      end: {
+        type: String,
+        default: ''
       }
     },
     sunday: {
-      am: {
-        start: {
-          type: String,
-          default: ''
-        }, 
-        end: {
-          type: String,
-          default: ''
-        }
+      start: {
+        type: String,
+        default: ''
       },
-      pm: {
-        start: {
-          type: String,
-          default: ''
-        }, 
-        end: {
-          type: String,
-          default: ''
-        }
+      end: {
+        type: String,
+        default: ''
       }
     },
-    holiday:{
-      am: {
-        start: {
-          type: String,
-          default: ''
-        }, 
-        end: {
-          type: String,
-          default: ''
-        }
+    holiday: {
+      start: {
+        type: String,
+        default: ''
       },
-      pm: {
-        start: {
-          type: String,
-          default: ''
-        }, 
-        end: {
-          type: String,
-          default: ''
-        }
+      end: {
+        type: String,
+        default: ''
       }
     }
   },
