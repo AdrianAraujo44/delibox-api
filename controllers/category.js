@@ -65,7 +65,7 @@ const deleteOne = async(req,res) => {
 
     await categoryModel.deleteOne({_id:id})
     
-    res.status(200).json({type: "sucess", message: "category has been deleted"})
+    res.status(200).json({type: "success", message: "category has been deleted"})
   }catch(err) {
     res.status(500).json(err)
   }
