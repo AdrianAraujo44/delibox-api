@@ -25,6 +25,10 @@ const ProductSchema = new Schema({
   available: {
     type: Boolean,
     default: true
+  },
+  complementId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Complement'
   }
 }, { timestamps: true })
 

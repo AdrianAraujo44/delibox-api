@@ -5,10 +5,10 @@ const categoryModel = require("../models/category")
 const newProduct = async (req, res) => {
   try {
     const { id } = req.params
-    const { name, price, categories, description } = req.body
+    const { name, price, categories, description, complementId } = req.body
 
     const newProduct = new productModel({
-      name, price, categories, description
+      name, price, categories, description, complementId
     })
     const product = await newProduct.save()
     await deliveryModel.updateOne(
@@ -87,7 +87,8 @@ const edit = async (req, res) => {
 
     res.status(200).json({ type: "success", message: "produto atualizado com sucesso!" })
   } catch (err) {
-    res.status(200).json(err)
+    res.status(500).json(err)
+    console.log(err)
   }
 }
 
@@ -97,6 +98,10 @@ const get = async (req, res) => {
       .populate({
         path: "categories",
         select: "name"
+      })
+      .populate({
+        path: "complementId",
+        select: "title rules itens"
       })
     if (response != null) {
       res.status(200).json({ type: "success", product: response })
