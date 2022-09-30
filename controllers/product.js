@@ -6,10 +6,13 @@ const newProduct = async (req, res) => {
   try {
     const { id } = req.params
     const { name, price, categories, description, complementId } = req.body
+    let productInfo = {name, price, categories, description}
+    
+    if(complementId != "") {
+      productInfo.complementId = complementId
+    }
 
-    const newProduct = new productModel({
-      name, price, categories, description, complementId
-    })
+    const newProduct = new productModel({ ...productInfo })
     const product = await newProduct.save()
     await deliveryModel.updateOne(
       { '_id': id },
@@ -57,7 +60,26 @@ const edit = async (req, res) => {
   try {
     const { productId } = req.params
     const { categories } = await productModel.findOne({ _id: productId }, "categories")
-    const product = await productModel.findOneAndUpdate({ _id: productId }, { ...req.body })
+    let  product
+
+    if(req.body.complementId == "") {
+      product = await productModel.findOneAndUpdate({ _id: productId }, { 
+        name: req.body.name,
+        price: req.body.price,
+        categories: req.body.categories,
+        description: req.body.description
+      })
+
+      await productModel.updateOne({productId},{ $unset: { complementId: "" }} )
+    }else {
+      product = await productModel.findOneAndUpdate({ _id: productId }, { 
+        name: req.body.name,
+        price: req.body.price,
+        categories: req.body.categories,
+        description: req.body.description,
+        complementId: req.body.complementId
+      })
+    }
 
     req.body.categories.forEach(async (element) => {
       if (!product.categories.includes(element.toString())) {
