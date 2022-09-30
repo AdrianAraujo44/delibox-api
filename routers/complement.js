@@ -2,7 +2,7 @@ const router = require('express').Router()
 const { complementController } = require('../controllers/complement')
 const { verifyToken } = require('../services/auth')
 
-router.post("/novo", verifyToken, async(req,res) => {
+router.post("/new", verifyToken, async(req,res) => {
   complementController.add(req,res)
 })
 
