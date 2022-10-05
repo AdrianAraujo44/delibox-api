@@ -64,12 +64,16 @@ const updateOne = async (req, res) => {
 const deleteOne = async (req, res) => {
   try {
     const { complementId } = req.params
-    await productModel.updateMany({ complementId }, { $unset: { complementId: "" } })
-    await complementModel.deleteOne({complementId})
+     await productModel.updateMany({
+      '$pull': {
+        complementId: complementId
+      }
+    })
 
+    await complementModel.deleteOne({_id: complementId})
     res.status(200).json({type:'success', message: "complemento deletado!"})
   } catch (err) {
-    req.status(500).json(err)
+    res.status(500).json(err)
   }
 }
 
