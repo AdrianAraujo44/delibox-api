@@ -26,10 +26,10 @@ const ProductSchema = new Schema({
     type: Boolean,
     default: true
   },
-  complementId: {
+  complementId: [{
     type: Schema.Types.ObjectId,
-    ref: 'Complement'
-  }
+    ref: 'Complement',
+  }],
 }, { timestamps: true })
 
 module.exports = mongoose.model('Product', ProductSchema)
