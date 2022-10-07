@@ -11,7 +11,7 @@ const orderSchema = new Schema({
       date: { type: Date, required: true }
     }
   ],
-  tax: {type: Number, default: 0},
+  tax: { type: Number, default: 0 },
   new: { type: Boolean, default: true, default: true },
   date: { type: Date, required: true },
   notes: { type: String, default: "" },
@@ -35,11 +35,13 @@ const orderSchema = new Schema({
 
   products: [{
     amount: { type: Number, required: true },
-    item: {
-      type: Schema.Types.ObjectId,
-      ref: 'Product',
-      required: true
-    }
+    name: { type: String, required: true },
+    price: { type: Number, required: true },
+    complements: [{
+      name: { type: String, required: true },
+      price: { type: Number, required: true},
+      amount: {type:Number, rquired: true}
+    }]
   }]
 
 }, { timestamps: true })
