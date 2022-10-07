@@ -30,4 +30,8 @@ router.get("/count/:deliveryId",verifyToken, async(req,res) => {
   productController.count(req,res)
 })
 
+router.put("/available/:productId", async(req,res) => {
+  productController.updateAvailable(req,res)
+})
+
 module.exports = router

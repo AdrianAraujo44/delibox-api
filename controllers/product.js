@@ -149,13 +149,28 @@ const count = async(req,res) => {
   }
 }
 
+const updateAvailable = async(req,res) => {
+  try{
+    await productModel.updateOne(
+      {_id: req.params.productId },
+      {available: req.body.available}
+    )
+
+    res.status(200).json({type:"success", message: "available has been updated"})
+  
+  }catch(err) {
+    res.status(500).json(err)
+  }
+}
+
 const productController = {
   newProduct,
   addImage,
   edit,
   get,
   getAll,
-  count
+  count,
+  updateAvailable
 }
 
 module.exports = { productController }
