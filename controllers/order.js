@@ -44,12 +44,18 @@ const newOrder = async (data) => {
         }
       })
     }
-
+    
     const order = new orderModel({
+      deliveryId: data.deliveryId,
+      type: data.type,
       code,
       status: [{ name: "IN_QUEUE", date: new Date() }],
-      ...data,
-      tax
+      tax,
+      date: data.date,
+      notes: data.notes,
+      money: data.money,
+      client: data.client,
+      products: data.products
     })
     await order.save()
 
@@ -63,7 +69,7 @@ const newOrder = async (data) => {
 const getAll = async (deliveryId) => {
   try {
     const response = await orderModel.find({ deliveryId })
-      .populate({ path: "products.item", select: "name price" })
+      
     return response
   } catch (err) {
     console.log(err)
@@ -82,7 +88,7 @@ const update = async (orderId, statusName) => {
         },
       },
       { new: true })
-      .populate({ path: "products.item", select: "name price imageUrl" })
+      
     return response
   } catch (err) {
     console.log(err)
@@ -101,7 +107,6 @@ const updateNew = async (orderId) => {
 const getOrder = async (req, res) => {
   try {
     const response = await orderModel.findOne({ code: req.params.code })
-      .populate({ path: "products.item", select: "name price imageUrl" })
 
     res.status(200).json(response)
   } catch (err) {
@@ -125,7 +130,7 @@ const historic = async (req, res) => {
   try {
     const { deliveryId } = req.params
     const response = await orderModel.find({ deliveryId })
-      .populate({ path: "products.item", select: "name price" })
+      
     res.status(200).json(response)
   } catch (err) {
     res.status(500).json(err)
@@ -139,7 +144,7 @@ const orderController = {
   updateNew,
   getOrder,
   count,
-  historic
+  historic,
 }
 
 module.exports = { orderController }

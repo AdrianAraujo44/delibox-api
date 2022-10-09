@@ -38,7 +38,7 @@ const login = async(req,res) => {
         const accessToken = jwt.sign(
           { id:credential._doc._id, type:credential._doc.type }, 
           process.env.SECRETKEY,
-          { expiresIn: "20s"}
+          { expiresIn: "900s"}
         )
 
         const refreshToken = jwt.sign(
@@ -85,7 +85,7 @@ const refreshToken = async(req,res) => {
       const newAccessToken = jwt.sign(
         { id:payload.id, type:payload.type }, 
         process.env.SECRETKEY,
-        { expiresIn: "10s"}
+        { expiresIn: "900s"}
       )
 
       const newRefreshToken = jwt.sign(
